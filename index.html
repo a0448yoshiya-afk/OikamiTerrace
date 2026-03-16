@@ -103,7 +103,22 @@
     .slide img { width: 100%; height: 100%; object-fit: cover; }
     .slide.active { opacity: 0.6; z-index: 2; }
 
-    .news-item { border-left: 1px solid #eee; padding-left: 1.5rem; }
+    .news-item {
+      border-left: 1px solid #eee;
+      padding-left: 1.5rem;
+    }
+
+    .news-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      transition: opacity 0.3s ease;
+      cursor: pointer;
+    }
+
+    .news-link:hover {
+      opacity: 0.7;
+    }
 
     .story-img {
       width: 100%;
@@ -195,6 +210,43 @@
 
     .outline-link:hover {
       background: #f7f5f3;
+    }
+
+    .mobile-calendar-card {
+      background: #faf8f5;
+      border: 1px solid #eee8e1;
+    }
+
+    .mobile-calendar-grid .day-label {
+      font-size: 9px;
+      color: #a8a29e;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .archive-card {
+      background: #fff;
+      border: 1px solid #ece7e2;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .archive-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+    }
+
+    .archive-tag-event {
+      background: #f7f3ee;
+      color: #8b6b4a;
+    }
+
+    .archive-tag-clean {
+      background: #eff6ff;
+      color: #1e40af;
+    }
+
+    .archive-detail {
+      border-top: 1px solid #f1efec;
     }
   </style>
 </head>
@@ -290,6 +342,53 @@
         </div>
       </div>
 
+      <!-- スマートフォン用カレンダー -->
+      <section id="home-calendar-mobile" class="lg:hidden px-6 py-10 border-b border-stone-100">
+        <div class="mobile-calendar-card p-6 max-w-3xl mx-auto">
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <p class="text-[10px] tracking-[0.35em] uppercase text-stone-400 mb-2">Calendar</p>
+              <h3 class="text-xl font-light tracking-widest text-stone-800">営業カレンダー</h3>
+            </div>
+            <div class="flex items-center gap-2 text-[10px] tracking-widest text-stone-500 uppercase">
+              <div class="w-2 h-2 open-day"></div>
+              <span>Open Every Tue.</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <div class="flex justify-between items-center mb-4">
+                <span class="text-xs font-bold tracking-widest uppercase">2026.03</span>
+              </div>
+              <div id="calendar-days-mobile-03" class="mobile-calendar-grid grid grid-cols-7 text-[11px] text-center gap-y-3">
+                <div class="day-label">S</div><div class="day-label">M</div>
+                <div class="day-label">T</div><div class="day-label">W</div>
+                <div class="day-label">T</div><div class="day-label">F</div>
+                <div class="day-label">S</div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between items-center mb-4">
+                <span class="text-xs font-bold tracking-widest uppercase">2026.04</span>
+              </div>
+              <div id="calendar-days-mobile-04" class="mobile-calendar-grid grid grid-cols-7 text-[11px] text-center gap-y-3">
+                <div class="day-label">S</div><div class="day-label">M</div>
+                <div class="day-label">T</div><div class="day-label">W</div>
+                <div class="day-label">T</div><div class="day-label">F</div>
+                <div class="day-label">S</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 pt-6 border-t border-stone-200">
+            <p class="text-sm text-stone-800 font-semibold mb-1">18:00 - 21:00</p>
+            <p class="text-[11px] tracking-[0.22em] uppercase text-stone-500">@OIKAMI TERRACE</p>
+          </div>
+        </div>
+      </section>
+
       <section class="px-8 py-20 max-w-5xl mx-auto border-b border-stone-100">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
           <div class="lg:col-span-2">
@@ -315,8 +414,16 @@
             <h3 class="text-xs font-bold tracking-widest uppercase mb-8 border-b pb-2">お知らせ</h3>
             <div class="space-y-8">
               <div class="news-item">
-                <span class="text-[10px] text-stone-400 block mb-1">2026.03.14</span>
-                <p class="text-xs leading-relaxed">4月のカレンダーを公開しました。春の夜風が心地よい季節です。</p>
+                <a href="javascript:void(0)" class="news-link internal-link" data-page="home" data-scroll="home-calendar-mobile">
+                  <span class="text-[10px] text-stone-400 block mb-1">2026.03.14</span>
+                  <p class="text-xs leading-relaxed">4月のカレンダーを公開しました。春の夜風が心地よい季節です。</p>
+                </a>
+              </div>
+              <div class="news-item">
+                <a href="javascript:void(0)" class="news-link internal-link" data-page="activity" data-scroll="activity-archive">
+                  <span class="text-[10px] text-stone-400 block mb-1">2026.03.17</span>
+                  <p class="text-xs leading-relaxed">Oikami Terrace 活動アーカイブを公開しました。これまでの季節イベントや清掃活動の記録をご覧いただけます。</p>
+                </a>
               </div>
             </div>
           </div>
@@ -364,39 +471,39 @@
         </div>
       </section>
 
-<section class="px-8 py-20 max-w-5xl mx-auto border-b border-stone-100">
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-    <div class="mood-grid grid grid-cols-2 gap-4 h-[420px] md:h-[500px]">
-      <a href="javascript:void(0)" class="col-span-2 overflow-hidden">
-        <img src="oikami-main2.jpg" alt="テラスの雰囲気" />
-      </a>
-      <a href="javascript:void(0)" class="overflow-hidden">
-        <img src="oikami-main3.jpg" alt="夜のディテール" />
-      </a>
-      <a href="javascript:void(0)" class="overflow-hidden">
-        <img src="oikami-main.jpg" alt="Oikami Terraceの空気感" />
-      </a>
-    </div>
+      <section class="px-8 py-20 max-w-5xl mx-auto border-b border-stone-100">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+          <div class="mood-grid grid grid-cols-2 gap-4 h-[420px] md:h-[500px]">
+            <a href="javascript:void(0)" class="col-span-2 overflow-hidden">
+              <img src="oikami-main2.jpg" alt="テラスの雰囲気" />
+            </a>
+            <a href="javascript:void(0)" class="overflow-hidden">
+              <img src="oikami-main3.jpg" alt="夜のディテール" />
+            </a>
+            <a href="javascript:void(0)" class="overflow-hidden">
+              <img src="oikami-main.jpg" alt="Oikami Terraceの空気感" />
+            </a>
+          </div>
 
-    <div class="bg-stone-50 border border-stone-100 p-8 md:p-10">
-      <span class="text-[10px] tracking-[0.4em] text-accent-color uppercase block mb-5">Menu Preview</span>
-      <h2 class="text-3xl font-light tracking-widest mb-6 leading-relaxed">
-        テラスメニュー<br />
-      </h2>
-      <p class="text-sm text-stone-600 leading-loose mb-8">
-        通常のご利用は、メニューページに掲載している内容にてお楽しみいただけます。さらに事前予約では、ゆっくりと心地よく過ごしていただけるよう、特別なお席とお食事をご用意し、いつもより少し豊かな時間をお届けします。
-      </p>
-      <div class="flex flex-wrap gap-4">
-        <button type="button" data-page="menu" class="page-jump soft-button">
-          Menuを見る
-        </button>
-        <button type="button" data-page="reserve" class="page-jump outline-link">
-          予約する
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
+          <div class="bg-stone-50 border border-stone-100 p-8 md:p-10">
+            <span class="text-[10px] tracking-[0.4em] text-accent-color uppercase block mb-5">Menu Preview</span>
+            <h2 class="text-3xl font-light tracking-widest mb-6 leading-relaxed">
+              テラスメニュー<br />
+            </h2>
+            <p class="text-sm text-stone-600 leading-loose mb-8">
+              通常のご利用は、メニューページに掲載している内容にてお楽しみいただけます。さらに事前予約では、ゆっくりと心地よく過ごしていただけるよう、特別なお席とお食事をご用意し、いつもより少し豊かな時間をお届けします。
+            </p>
+            <div class="flex flex-wrap gap-4">
+              <button type="button" data-page="menu" class="page-jump soft-button">
+                Menuを見る
+              </button>
+              <button type="button" data-page="reserve" class="page-jump outline-link">
+                予約する
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section class="px-8 pt-20 pb-12 max-w-5xl mx-auto">
         <header class="mb-12">
@@ -493,7 +600,7 @@
     </div>
 
     <div id="page-activity" class="page-content">
-      <section class="px-8 py-20 max-w-5xl mx-auto text-center">
+      <section class="px-8 py-20 max-w-5xl mx-auto text-center border-b border-stone-100">
         <header class="mb-20">
           <span class="text-xs tracking-[0.4em] text-accent-color uppercase mb-4 block">Our Action</span>
           <h2 class="text-4xl font-light tracking-widest">まちづくり活動</h2>
@@ -501,110 +608,214 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
           <div class="board-card p-6">
             <span class="text-[9px] uppercase tracking-widest px-2 py-1 tag-cleaning">Cleaning</span>
-            <h4 class="text-sm font-semibold mt-4 mb-2">まちの早朝清掃</h4>
-            <p class="text-xs text-stone-500">毎月最終土曜、地域清掃を実施中。</p>
+            <h4 class="text-sm font-semibold mt-4 mb-2">まちの清掃活動</h4>
+            <p class="text-xs text-stone-500">胸川沿いのテラス周辺を、少しずつ心地よい景色へ整える活動を続けています。</p>
           </div>
           <div class="board-card p-6">
-            <span class="text-[9px] uppercase tracking-widest px-2 py-1 tag-workshop">event</span>
+            <span class="text-[9px] uppercase tracking-widest px-2 py-1 tag-workshop">Event</span>
             <h4 class="text-sm font-semibold mt-4 mb-2">季節イベント</h4>
-            <p class="text-xs text-stone-500">季節を感じられるイベントを実施します。</p>
+            <p class="text-xs text-stone-500">十五夜、クリスマス、雛祭りなど、季節を感じる時間をこの場所に重ねています。</p>
           </div>
+          <div class="board-card p-6">
+            <span class="text-[9px] uppercase tracking-widest px-2 py-1 tag-workshop">Archive</span>
+            <h4 class="text-sm font-semibold mt-4 mb-2">活動アーカイブ</h4>
+            <p class="text-xs text-stone-500">これまでの取り組みを、過去の歩みとして記録に残しています。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="activity-archive" class="px-8 py-20 max-w-5xl mx-auto">
+        <header class="mb-16 text-center">
+          <span class="text-xs tracking-[0.4em] text-accent-color uppercase mb-4 block">Archive</span>
+          <h2 class="text-4xl font-light tracking-widest mb-6">Oikami Terrace 活動アーカイブ</h2>
+          <p class="text-sm text-stone-600 leading-loose max-w-3xl mx-auto">
+            ― 清掃活動と季節イベントの記録 ―<br /><br />
+            Oikami Terraceでは、胸川沿いの道路空間を舞台に、季節ごとのイベントや清掃活動を行っています。<br />
+            これらは単発のイベントではなく、「人が心地よく過ごせる場所」を少しずつ育てていくための取り組みです。<br />
+            その歩みを振り返ることができるよう、清掃活動や季節イベントの実績をアーカイブとして記録に残しています。
+          </p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <article class="archive-card p-7">
+            <span class="inline-flex text-[9px] uppercase tracking-widest px-3 py-1 archive-tag-event">Event</span>
+            <h3 class="text-xl font-light tracking-widest mt-5 mb-4">① 十五夜 竹あかりイベント</h3>
+            <p class="text-sm text-stone-600 leading-loose">
+              胸川沿いの道路で、竹あかりとともに秋の夜をゆっくり味わう時間をつくりました。
+            </p>
+            <div class="archive-detail mt-6 pt-6 text-sm text-stone-700 leading-loose space-y-4">
+              <p>胸川沿いの道路で、十五夜イベントを開催しました。</p>
+              <p>竹あかりの灯りを並べ、お月見団子づくりや音楽演奏、屋外上映会など、秋の夜をゆっくり楽しめるような企画を準備しました。</p>
+              <p>当日は、りんどうの竹あかりもとても綺麗で、空を見上げると満月がはっきりと見え、音楽を聴きながら過ごす時間はとても穏やかなものでした。</p>
+              <p>来てくださった方々が、それぞれのペースで過ごしている姿を見て、こういう時間がこの場所に生まれたことを嬉しく感じました。</p>
+              <p>またこうした機会をつくれたらいいなと思える、そんな夜になりました。</p>
+            </div>
+          </article>
+
+          <article class="archive-card p-7">
+            <span class="inline-flex text-[9px] uppercase tracking-widest px-3 py-1 archive-tag-event">Event</span>
+            <h3 class="text-xl font-light tracking-widest mt-5 mb-4">② クリスマスイベント</h3>
+            <p class="text-sm text-stone-600 leading-loose">
+              イルミネーションと特別メニューで、冬の夜にやわらかな灯りの景色をつくりました。
+            </p>
+            <div class="archive-detail mt-6 pt-6 text-sm text-stone-700 leading-loose space-y-4">
+              <p>その年最後のOikami Terraceは、クリスマスバージョンで開催しました。</p>
+              <p>オープンテラスにはイルミネーションを飾り、冬の夜に少し温かみのある空間をつくりました。</p>
+              <p>期間中は御麺のお店も夜にオープンし、クリスマス特別メニューも準備していただきました。</p>
+              <p>食事を楽しむ方だけでなく、散歩の途中で立ち寄ってイルミネーションを眺めたり、少し座って休憩したりと、思い思いにこの場所を使っていただいている様子がとても印象的でした。</p>
+              <p>十五夜イベントから始まり、こうして活動を続けることができているのは、地域の皆さまの温かい支えのおかげだと改めて感じました。</p>
+              <p>これからも、訪れる方々の時間が少しでも豊かになるような取り組みを続けていきたいと思います。</p>
+            </div>
+          </article>
+
+          <article class="archive-card p-7">
+            <span class="inline-flex text-[9px] uppercase tracking-widest px-3 py-1 archive-tag-event">Event</span>
+            <h3 class="text-xl font-light tracking-widest mt-5 mb-4">③ 雛祭りイベント</h3>
+            <p class="text-sm text-stone-600 leading-loose">
+              子どもも大人もそれぞれに過ごせる、少しずつ「居場所」になっていく時間を感じた一日でした。
+            </p>
+            <div class="archive-detail mt-6 pt-6 text-sm text-stone-700 leading-loose space-y-4">
+              <p>春には、雛祭りイベントを開催しました。</p>
+              <p>今回のイベントでは、ただ商品を買って帰るだけではなく、どうすればこの場所で長く過ごしてもらえるかを考えながら準備をしました。</p>
+              <p>子どもたちはお絵描きをしたり、ボールプールで遊んだり、シール交換をしたりして過ごしていました。</p>
+              <p>知らない子ども同士が自然と一緒に遊び始める姿や、親子が一緒に過ごしている様子、大人の方々がテラス席でゆっくり食事をしている姿を見て、この空間が少しずつ「居場所」になっていることを感じました。</p>
+              <p>イベントの最後には出店者の方々とお茶会を行い、交流を深めながら次にやりたいことのアイデアを出し合いました。</p>
+              <p>準備は大変ですが、やっぱりこういう時間は楽しいなと感じる一日でした。</p>
+              <p>また、このイベントができたのは、社会実験としてこの道路が歩行者天国になっているからこそです。</p>
+              <p>だからこそ私たちは、この道路を「車が通る場所」ではなく「人が心地よく過ごせる場所」として育てていきたいと改めて思いました。</p>
+            </div>
+          </article>
+
+          <article class="archive-card p-7">
+            <span class="inline-flex text-[9px] uppercase tracking-widest px-3 py-1 archive-tag-clean">Cleaning</span>
+            <h3 class="text-xl font-light tracking-widest mt-5 mb-4">④ 清掃活動（1回目）</h3>
+            <p class="text-sm text-stone-600 leading-loose">
+              道路脇の雑木を切り、景色の印象が変わることを実感した最初の清掃活動でした。
+            </p>
+            <div class="archive-detail mt-6 pt-6 text-sm text-stone-700 leading-loose space-y-4">
+              <p>胸川沿いのテラス周辺で、清掃活動を行いました。</p>
+              <p>以前から気になっていた道路脇の雑木を切ることができ、見違えるほどすっきりしました。</p>
+              <p>土に埋もれて見えなくなっていた側溝も、石畳に合わせたきれいなデザインになっていて、隠れてしまっているのがもったいないと感じました。</p>
+              <p>人が心地よく歩く空間は、景色の印象もとても大事なのだと改めて思いました。</p>
+              <p>この場所を大切に使っていくためには、やはり定期的に清掃を続けていくことが必要だと感じました。</p>
+              <p>この日は宮山さんもお仕事の合間に手伝ってくださいました。</p>
+              <p>12月とは思えない暖かさで、スーツでの作業はなかなか大変そうでしたが、本当にありがたかったです。</p>
+              <p>予定していた範囲までは清掃できませんでしたが、また少しずつ活動を続けていきたいと思います。</p>
+            </div>
+          </article>
+
+          <article class="archive-card p-7 md:col-span-2">
+            <span class="inline-flex text-[9px] uppercase tracking-widest px-3 py-1 archive-tag-clean">Cleaning</span>
+            <h3 class="text-xl font-light tracking-widest mt-5 mb-4">⑤ 清掃活動（2回目）</h3>
+            <p class="text-sm text-stone-600 leading-loose">
+              OIKAMI TERRACE クリーン作戦として、地域の方や子どもたちと一緒に続けた2回目の活動です。
+            </p>
+            <div class="archive-detail mt-6 pt-6 text-sm text-stone-700 leading-loose space-y-4">
+              <p>OIKAMI TERRACE クリーン作戦</p>
+              <p>昨年12月の清掃活動に続き、2回目のクリーン作戦を実施しました。</p>
+              <p>道路脇の雑草は根が深く、思った以上に大変な作業でしたが、なんとか取り除くことができました。</p>
+              <p>また、以前から空き地の所有者の方にお話をしていた場所についても、許可をいただいて除草を行いました。</p>
+              <p>寒い中でしたが、子どもたちも手伝ってくれて、とても助かりました。</p>
+              <p>こうして少しずつでも、この場所が気持ちよく過ごせる空間になっていけば嬉しいと思っています。</p>
+              <p>今後も月に一度くらいのペースで清掃活動を続けていきたいと考えています。</p>
+              <p>もし一緒に活動してみたいと思う方がいれば、短時間でも大歓迎ですので、ぜひ気軽に声をかけてください。</p>
+            </div>
+          </article>
         </div>
       </section>
     </div>
 
-<div id="page-story" class="page-content">
-  <section class="px-8 py-20 max-w-4xl mx-auto text-center">
-    <header class="mb-20">
-      <h2 class="text-4xl font-light tracking-widest">OikamiTerraceの物語</h2>
-    </header>
-    <div class="mb-12">
-      <p class="text-2xl text-stone-700 leading-loose">まちに、少し豊かな時間を。</p>
+    <div id="page-story" class="page-content">
+      <section class="px-8 py-20 max-w-4xl mx-auto text-center">
+        <header class="mb-20">
+          <h2 class="text-4xl font-light tracking-widest">OikamiTerraceの物語</h2>
+        </header>
+        <div class="mb-12">
+          <p class="text-2xl text-stone-700 leading-loose">まちに、少し豊かな時間を。</p>
+        </div>
+        <div class="text-sm text-stone-700 leading-loose space-y-10 max-w-[60ch] mx-auto text-center">
+          <p>
+            かつて、この道はただ通り過ぎるだけの場所でした。<br />
+            けれど、立ち止まってみると目の前には<br />
+            人吉城跡の石垣、静かに流れる胸川、<br />
+            そしてやさしく広がるまちなみ。<br />
+            本当は、とても美しい場所でした。
+          </p>
+
+          <p>
+            ここに少しだけ手を加えれば、きっと人が立ち止まり、<br />
+            景色を眺め、豊かな時間を過ごせる場所になる。<br />
+            そんな思いから「Oikami Terrace」の取り組みは始まりました。
+          </p>
+
+          <p>⸻</p>
+
+          <p>
+            夜になると、この場所に小さなテラスが生まれます。<br />
+            灯りの中で、ゆっくり景色を眺めたり、静かに会話を楽しんだり、<br />
+            一人で心を休めたり。<br />
+            忙しい日常のなかで、ほんの少しだけ立ち止まる時間。<br />
+            それはきっと、日々の暮らしを少しだけ豊かにしてくれます。
+          </p>
+
+          <p>⸻</p>
+
+          <div class="space-y-4">
+            <p>季節がめぐるたび、この通りの景色も少しずつ変わります。</p>
+            <p>風車が回る春</p>
+            <p>風鈴が揺れる夏</p>
+            <p>竹あかりが灯る秋</p>
+            <p>冬の夜を照らす小さな光</p>
+          </div>
+
+          <p>⸻</p>
+
+          <p>
+            ときには子どもたちが集まり、ときには大人が静かに過ごす。<br />
+            この場所が、それぞれの人にとっての小さな拠り所になればと思っています。
+          </p>
+
+          <p>⸻</p>
+
+          <p>私たちが目指しているのは、ただのイベントではありません。</p>
+
+          <p>
+            この道そのものが、公園のように、テラスのように、<br />
+            人が自然に集まり、過ごせる場所になること。
+          </p>
+
+          <p>
+            ここに来てくれる人たちが、「この時間は豊かだった」と思える場所を<br />
+            ゆっくりと育てていくことです。
+          </p>
+
+          <p>⸻</p>
+
+          <p>
+            その手がかりとして、夜のテラスや季節のイベントを開きながら、<br />
+            この場所の居心地を少しずつ探しています。
+          </p>
+
+          <p>
+            まだ小さな取り組みですが、ここで生まれる時間が、<br />
+            まちの景色を少しずつ変えていくことを願って。
+          </p>
+
+          <p>
+            Oikami Terraceは、そんな未来を思い描きながら<br />
+            続けている小さな挑戦です。
+          </p>
+
+          <img
+            src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=1200"
+            class="story-img mx-auto"
+            alt="Landscape"
+          />
+
+          <p>私たちは、社会実験を重ね、人々の笑顔が集まる場所を目指しています。</p>
+        </div>
+      </section>
     </div>
-    <div class="text-sm text-stone-700 leading-loose space-y-10 max-w-[60ch] mx-auto text-center">
-      <p>
-        かつて、この道はただ通り過ぎるだけの場所でした。<br />
-        けれど、立ち止まってみると目の前には<br />
-        人吉城跡の石垣、静かに流れる胸川、<br />
-        そしてやさしく広がるまちなみ。<br />
-        本当は、とても美しい場所でした。
-      </p>
-
-      <p>
-        ここに少しだけ手を加えれば、きっと人が立ち止まり、<br />
-        景色を眺め、豊かな時間を過ごせる場所になる。<br />
-        そんな思いから「Oikami Terrace」の取り組みは始まりました。
-      </p>
-
-      <p>⸻</P>
-
-      <p>
-        夜になると、この場所に小さなテラスが生まれます。<br />
-        灯りの中で、ゆっくり景色を眺めたり、静かに会話を楽しんだり、<br />
-        一人で心を休めたり。<br />
-        忙しい日常のなかで、ほんの少しだけ立ち止まる時間。<br />
-        それはきっと、日々の暮らしを少しだけ豊かにしてくれます。
-      </p>
-
-      <p>⸻</p>
-
-      <!-- 季節の部分だけ少し詰める -->
-      <div class="space-y-4">
-        <p>季節がめぐるたび、この通りの景色も少しずつ変わります。</p>
-        <p>風車が回る春</p>
-        <p>風鈴が揺れる夏</p>
-        <p>竹あかりが灯る秋</p>
-        <p>冬の夜を照らす小さな光</p>
-      </div>
-
-      <p>⸻</p>
-
-      <p>
-        ときには子どもたちが集まり、ときには大人が静かに過ごす。<br />
-        この場所が、それぞれの人にとっての小さな拠り所になればと思っています。
-      </p>
-
-      <p>⸻</p>
-
-      <p>私たちが目指しているのは、ただのイベントではありません。</p>
-
-      <p>
-        この道そのものが、公園のように、テラスのように、<br />
-        人が自然に集まり、過ごせる場所になること。
-      </p>
-
-      <p>
-        ここに来てくれる人たちが、「この時間は豊かだった」と思える場所を<br />
-        ゆっくりと育てていくことです。
-      </p>
-
-      <p>⸻</p>
-
-      <p>
-        その手がかりとして、夜のテラスや季節のイベントを開きながら、<br />
-        この場所の居心地を少しずつ探しています。
-      </p>
-
-      <p>
-        まだ小さな取り組みですが、ここで生まれる時間が、<br />
-        まちの景色を少しずつ変えていくことを願って。
-      </p>
-
-      <p>
-        Oikami Terraceは、そんな未来を思い描きながら<br />
-        続けている小さな挑戦です。
-      </p>
-
-      <img
-        src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=1200"
-        class="story-img mx-auto"
-        alt="Landscape"
-      />
-
-      <p>私たちは、社会実験を重ね、人々の笑顔が集まる場所を目指しています。</p>
-    </div>
-  </section>
-</div>
 
     <div id="page-reserve" class="page-content">
       <section class="px-8 py-20 max-w-2xl mx-auto">
@@ -701,19 +912,32 @@
   <script>
     const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzXIGe84GBYKLdVNBGNpebDHfjRBZQiwffw3-mbvEzMQLj1699TBqbwswfh1_jPtsRW/exec';
 
-    function switchPage(pageId) {
+    function switchPage(pageId, scrollTargetId = null) {
       document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+
       const targetPage = document.getElementById(`page-${pageId}`);
       const targetBtn = document.getElementById(`btn-${pageId}`);
+
       if (targetPage) targetPage.classList.add('active');
       if (targetBtn) targetBtn.classList.add('active');
+
       window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (scrollTargetId) {
+        setTimeout(() => {
+          const target = document.getElementById(scrollTargetId);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 250);
+      }
     }
 
     function renderCalendar(containerId, year, month, tuesdays) {
       const container = document.getElementById(containerId);
       if (!container) return;
+
       const firstDay = new Date(year, month - 1, 1).getDay();
       const lastDate = new Date(year, month, 0).getDate();
 
@@ -736,8 +960,18 @@
         btn.addEventListener('click', () => switchPage(btn.dataset.page));
       });
 
+      document.querySelectorAll('.internal-link').forEach(link => {
+        link.addEventListener('click', () => {
+          const page = link.dataset.page;
+          const scroll = link.dataset.scroll || null;
+          switchPage(page, scroll);
+        });
+      });
+
       renderCalendar('calendar-days-03', 2026, 3, [3, 10, 17, 24, 31]);
       renderCalendar('calendar-days-04', 2026, 4, [7, 14, 21, 28]);
+      renderCalendar('calendar-days-mobile-03', 2026, 3, [3, 10, 17, 24, 31]);
+      renderCalendar('calendar-days-mobile-04', 2026, 4, [7, 14, 21, 28]);
 
       const slides = document.querySelectorAll('.slide');
       let current = 0;

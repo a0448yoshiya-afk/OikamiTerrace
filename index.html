@@ -523,7 +523,7 @@
         </div>
       </div>
 
-      <section id="home-calendar-mobile" class="lg:hidden px-6 py-10 border-b border-stone-100">
+      <section id="home-calendar-mobile" class="px-6 py-10 border-b border-stone-100" style="display:none;">
         <div class="mobile-calendar-card p-6 max-w-3xl mx-auto">
           <div class="flex items-center justify-between mb-6">
             <div>
@@ -1304,6 +1304,12 @@
       });
 
       renderCalendar('calendar-days-04', 2026, 4, [7, 14, 21, 28]);
+      function toggleMobileCalendar() {
+        const cal = document.getElementById('home-calendar-mobile');
+        if (cal) cal.style.display = window.innerWidth < 1024 ? 'block' : 'none';
+      }
+      toggleMobileCalendar();
+      window.addEventListener('resize', toggleMobileCalendar);
       renderCalendar('calendar-days-05', 2026, 5, [5, 12, 19, 26]);
       renderCalendar('calendar-days-mobile-04', 2026, 4, [7, 14, 21, 28]);
       renderCalendar('calendar-days-mobile-05', 2026, 5, [5, 12, 19, 26]);

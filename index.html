@@ -29,6 +29,7 @@
       scroll-behavior: smooth;
       -webkit-tap-highlight-color: transparent;
       overflow-x: hidden;
+      overflow-y: auto;
       min-height: 100dvh;
     }
 
@@ -1245,6 +1246,8 @@
       if (targetBtn) targetBtn.classList.add('active');
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
 
       if (scrollTargetId) {
         setTimeout(() => {

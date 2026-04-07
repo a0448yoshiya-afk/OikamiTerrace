@@ -1310,6 +1310,12 @@ renderCalendar('calendar-days-04', 2026, 4, [7, 14, 21, 28]);
       }
       toggleMobileCalendar();
       window.addEventListener('resize', toggleMobileCalendar);
+      function toggleMobileCalendar() {
+        const cal = document.getElementById('home-calendar-mobile');
+        if (cal) cal.style.display = window.innerWidth < 1024 ? 'block' : 'none';
+      }
+      toggleMobileCalendar();
+      window.addEventListener('resize', toggleMobileCalendar);
       window.addEventListener('resize', toggleMobileCalendar);
       renderCalendar('calendar-days-05', 2026, 5, [5, 12, 19, 26]);
       renderCalendar('calendar-days-mobile-04', 2026, 4, [7, 14, 21, 28]);

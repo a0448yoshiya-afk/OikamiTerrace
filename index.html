@@ -1238,128 +1238,130 @@
   </main>
 
   <script>
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw4AiTnt5nTi2OZiIQOzlhiHkPTJs1Kv3HAsfY9eRV9jFg0oJjYKAcmDhOwrlHkOwTM/exec
+  const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw4AiTnt5nTi2OZiIQOzlhiHkPTJs1Kv3HAsfY9eRV9jFg0oJjYKAcmDhOwrlHkOwTM/exec';
 
-    function switchPage(pageId, scrollTargetId = null) {
-      document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  function switchPage(pageId, scrollTargetId = null) {
+    document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
 
-      const targetPage = document.getElementById(`page-${pageId}`);
-      const targetBtn = document.getElementById(`btn-${pageId}`);
+    const targetPage = document.getElementById(`page-${pageId}`);
+    const targetBtn = document.getElementById(`btn-${pageId}`);
 
-      if (targetPage) targetPage.classList.add('active');
-      if (targetBtn) targetBtn.classList.add('active');
+    if (targetPage) targetPage.classList.add('active');
+    if (targetBtn) targetBtn.classList.add('active');
 
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
 
-      if (scrollTargetId) {
-        setTimeout(() => {
-          const target = document.getElementById(scrollTargetId);
-          if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }, 250);
-      }
+    if (scrollTargetId) {
+      setTimeout(() => {
+        const target = document.getElementById(scrollTargetId);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 250);
+    }
+  }
+
+  function renderCalendar(containerId, year, month, tuesdays) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const firstDay = new Date(year, month - 1, 1).getDay();
+    const lastDate = new Date(year, month, 0).getDate();
+
+    for (let i = 0; i < firstDay; i++) {
+      container.appendChild(document.createElement('div'));
     }
 
-    function renderCalendar(containerId, year, month, tuesdays) {
-      const container = document.getElementById(containerId);
-      if (!container) return;
-
-      const firstDay = new Date(year, month - 1, 1).getDay();
-      const lastDate = new Date(year, month, 0).getDate();
-
-      for (let i = 0; i < firstDay; i++) {
-        container.appendChild(document.createElement('div'));
-      }
-
-      for (let day = 1; day <= lastDate; day++) {
-        const dayEl = document.createElement('div');
-        dayEl.textContent = day;
-        dayEl.className = tuesdays.includes(day)
-          ? 'w-5 h-5 flex items-center justify-center mx-auto open-day'
-          : 'w-5 h-5 flex items-center justify-center mx-auto text-stone-300';
-        container.appendChild(dayEl);
-      }
+    for (let day = 1; day <= lastDate; day++) {
+      const dayEl = document.createElement('div');
+      dayEl.textContent = day;
+      dayEl.className = tuesdays.includes(day)
+        ? 'w-5 h-5 flex items-center justify-center mx-auto open-day'
+        : 'w-5 h-5 flex items-center justify-center mx-auto text-stone-300';
+      container.appendChild(dayEl);
     }
+  }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.nav-btn, .page-jump').forEach(btn => {
-        btn.addEventListener('click', () => switchPage(btn.dataset.page));
-      });
+  function toggleMobileCalendar() {
+    const cal = document.getElementById('home-calendar-mobile');
+    if (cal) {
+      cal.style.display = window.innerWidth < 1024 ? 'block' : 'none';
+    }
+  }
 
-      document.querySelectorAll('.internal-link').forEach(link => {
-        link.addEventListener('click', () => {
-          const page = link.dataset.page;
-          const scroll = link.dataset.scroll || null;
-          switchPage(page, scroll);
-        });
-      });
-
-      document.querySelectorAll('.archive-toggle').forEach(toggle => {
-        toggle.addEventListener('click', () => {
-          const card = toggle.closest('.archive-card');
-          const isOpen = card.classList.contains('open');
-
-          card.classList.toggle('open');
-          toggle.setAttribute('aria-expanded', String(!isOpen));
-        });
-      });
-
-renderCalendar('calendar-days-04', 2026, 4, [7, 14, 21, 28]);
-      function toggleMobileCalendar() {
-        const cal = document.getElementById('home-calendar-mobile');
-        if (cal) cal.style.display = window.innerWidth < 1024 ? 'block' : 'none';
-      }
-      toggleMobileCalendar();
-      window.addEventListener('resize', toggleMobileCalendar);
-      function toggleMobileCalendar() {
-        const cal = document.getElementById('home-calendar-mobile');
-        if (cal) cal.style.display = window.innerWidth < 1024 ? 'block' : 'none';
-      }
-      toggleMobileCalendar();
-      window.addEventListener('resize', toggleMobileCalendar);
-      window.addEventListener('resize', toggleMobileCalendar);
-      renderCalendar('calendar-days-05', 2026, 5, [5, 12, 19, 26]);
-      renderCalendar('calendar-days-mobile-04', 2026, 4, [7, 14, 21, 28]);
-      renderCalendar('calendar-days-mobile-05', 2026, 5, [5, 12, 19, 26]);
-
-      const slides = document.querySelectorAll('.slide');
-      let current = 0;
-      if (slides.length > 1) {
-        setInterval(() => {
-          slides[current].classList.remove('active');
-          current = (current + 1) % slides.length;
-          slides[current].classList.add('active');
-        }, 5000);
-      }
-
-      const form = document.getElementById('booking-form');
-      const submitButton = document.getElementById('submit-button');
-      if (form) {
-        form.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          submitButton.disabled = true;
-          submitButton.textContent = '送信中...';
-
-          const formData = new FormData(form);
-          const params = new URLSearchParams();
-          formData.forEach((value, key) => params.append(key, value));
-
-          try {
-            await fetch(WEB_APP_URL, { method: 'POST', body: params, mode: 'no-cors' });
-            form.classList.add('hidden');
-            document.getElementById('booking-success').classList.remove('hidden');
-          } catch (error) {
-            alert('送信エラーが発生しました。');
-            submitButton.disabled = false;
-            submitButton.textContent = '予約リクエストを送信';
-          }
-        });
-      }
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.nav-btn, .page-jump').forEach(btn => {
+      btn.addEventListener('click', () => switchPage(btn.dataset.page));
     });
-  </script>
+
+    document.querySelectorAll('.internal-link').forEach(link => {
+      link.addEventListener('click', () => {
+        const page = link.dataset.page;
+        const scroll = link.dataset.scroll || null;
+        switchPage(page, scroll);
+      });
+    });
+
+    document.querySelectorAll('.archive-toggle').forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const card = toggle.closest('.archive-card');
+        const isOpen = card.classList.contains('open');
+        card.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(!isOpen));
+      });
+    });
+
+    renderCalendar('calendar-days-04', 2026, 4, [7, 14, 21, 28]);
+    renderCalendar('calendar-days-05', 2026, 5, [5, 12, 19, 26]);
+    renderCalendar('calendar-days-mobile-04', 2026, 4, [7, 14, 21, 28]);
+    renderCalendar('calendar-days-mobile-05', 2026, 5, [5, 12, 19, 26]);
+
+    toggleMobileCalendar();
+    window.addEventListener('resize', toggleMobileCalendar);
+
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+    if (slides.length > 1) {
+      setInterval(() => {
+        slides[current].classList.remove('active');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('active');
+      }, 5000);
+    }
+
+    const form = document.getElementById('booking-form');
+    const submitButton = document.getElementById('submit-button');
+
+    if (form && submitButton) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        submitButton.disabled = true;
+        submitButton.textContent = '送信中...';
+
+        const formData = new FormData(form);
+        const params = new URLSearchParams();
+        formData.forEach((value, key) => params.append(key, value));
+
+        try {
+          await fetch(WEB_APP_URL, {
+            method: 'POST',
+            body: params,
+            mode: 'no-cors'
+          });
+
+          form.classList.add('hidden');
+          document.getElementById('booking-success').classList.remove('hidden');
+        } catch (error) {
+          alert('送信エラーが発生しました。');
+          submitButton.disabled = false;
+          submitButton.textContent = '予約リクエストを送信';
+        }
+      });
+    }
+  });
+</script>
 </body>
 </html>
